@@ -1,24 +1,17 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Test without JWT:
 
-Things you may want to cover:
+    curl --header http://localhost:3000/
 
-* Ruby version
+Get the JWT token from Authorization header:
 
-* System dependencies
+    Edit application_controller.rb:
 
-* Configuration
+        #protect_from_forgery with: :exception
+        protect_from_forgery with: :null_session
 
-* Database creation
+    curl -i -X POST -d "user[email]"="admin@example.com" -d "user[password]"="12345678" http://localhost:3000/users/sign_in
 
-* Database initialization
+Test with JWT:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    curl --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInNjcCI6InVzZXIiLCJpYXQiOjE0OTEzOTMzNjYsImV4cCI6MTQ5MTM5Njk2NiwianRpIjoiNDU5MzQ5ZjEtZTM2Ny00MmQ2LWI5NzEtYTAwM2FlMmQ0MGRlIn0.QqxdyenDVoAu4z47481fhuNpVJbxYPTxWyy_DG_BEts" http://localhost:3000/
