@@ -278,5 +278,8 @@ Devise.setup do |config|
   # For devise-jwt:
   config.jwt do |jwt|
     jwt.secret = "secret" # ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.dispatch_requests = [
+                              ['POST', %r{^/authentication_tokens/create$}]
+                            ]
   end
 end
