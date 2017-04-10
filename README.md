@@ -1,3 +1,12 @@
+== Rails-devise-jwt
+
+Basic Rails 5 app with Devise configured. There are two ways to sign in:
+
+* /users/sign_in -- normal web interface
+* /api/v1/authentication_tokens/create -- API authentication returning JWT token
+
+In both cases the response will contain Authorization header which has the JWT token.
+
 
 Test without JWT:
 
@@ -5,14 +14,14 @@ Test without JWT:
 
 Get the JWT token from Authorization header:
 
-    Edit application_controller.rb:
+    In order to use curl edit application_controller.rb:
 
         #protect_from_forgery with: :exception
         protect_from_forgery with: :null_session
 
     curl -i -X POST -d "user[email]"="admin@example.com" -d "user[password]"="12345678" http://localhost:3000/users/sign_in
 
-Test with JWT:
+Test with JWT token (first do sign-in and then copy the token):
 
     curl --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInNjcCI6InVzZXIiLCJpYXQiOjE0OTEzOTMzNjYsImV4cCI6MTQ5MTM5Njk2NiwianRpIjoiNDU5MzQ5ZjEtZTM2Ny00MmQ2LWI5NzEtYTAwM2FlMmQ0MGRlIn0.QqxdyenDVoAu4z47481fhuNpVJbxYPTxWyy_DG_BEts" http://localhost:3000/
 
